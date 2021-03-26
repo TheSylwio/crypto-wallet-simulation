@@ -1,34 +1,37 @@
 import * as React from 'react';
-import { StyleSheet } from 'react-native';
-
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import CreditCard from '../components/CreditCard';
+import Button from '../components/Button';
+import styled from 'styled-components/native';
 
 const WalletScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab One</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="/screens/WalletScreen.tsx" />
-    </View>
+    <Wrapper>
+      <ButtonRow>
+        <Button title="Buy" onPress={() => console.log('123')} color="#16ac6a"/>
+        <Button title="Sell" onPress={() => console.log('123')} color="#ed1c66"/>
+      </ButtonRow>
+      <CreditCard
+        value={39.584}
+        difference={3.55}
+      />
+      <CreditCard
+        value={11.211}
+        difference={-21.13}
+      />
+    </Wrapper>
   );
-}
+};
 
 export default WalletScreen;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
-  },
-});
+const Wrapper = styled.View`
+  flex: 1;
+  align-items: center;
+  background: #f1f4f9;
+`;
+
+const ButtonRow = styled.View`
+  display: flex;
+  flex-direction: row;
+  padding: 8px;
+`;

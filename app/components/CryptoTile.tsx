@@ -5,20 +5,29 @@ import { useNavigation } from '@react-navigation/native';
 interface Props {
   name: string;
   difference: number;
+  code: string;
+  price: number;
 }
 
 const getFormattedDifference = (difference: number) => difference > 0 ? `+ ${difference}%` : `- ${-difference}%`;
 
-const CryptoTile: React.FC<Props> = ({ name, difference }) => {
+const CryptoTile: React.FC<Props> = ({ name, difference, code, price }) => {
   const navigation = useNavigation();
 
+  const onPress = () => {
+    navigation.navigate('Crypto', {
+      screen: 'CryptoScreen',
+      params: { name },
+    });
+  };
+
   return (
-    <Wrapper onPress={() => navigation.navigate({ name: 'Crypto', params: { name: 'Bitcoin' }})}>
+    <Wrapper onPress={onPress}>
       <Icon style={{ resizeMode: 'contain' }} source={require('../assets/icons/bitcoin.png')}/>
       <Main>
         <Name>{name}</Name>
-        <FadedText>BTC</FadedText>
-        <FadedText>$55 455,45</FadedText>
+        <FadedText>{code}</FadedText>
+        <FadedText>{price}</FadedText>
       </Main>
       <Difference difference={difference}>
         {getFormattedDifference(difference)}

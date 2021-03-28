@@ -1,7 +1,10 @@
 import { StackNavigationOptions } from '@react-navigation/stack';
 
 const ScreenOptions: StackNavigationOptions = {
-  headerTitleStyle: { alignSelf: 'center' },
+  headerTitleAlign: 'center',
+  headerTitleStyle: {
+    color: '#000000'
+  },
   headerStyle: {
     backgroundColor: '#F8FAFB',
     elevation: 0,

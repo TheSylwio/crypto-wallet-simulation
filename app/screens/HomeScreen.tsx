@@ -1,25 +1,24 @@
 import * as React from 'react';
-import { useState } from 'react';
 import { Text } from '../components/Themed';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import CryptoTile from '../components/CryptoTile';
 
-const HomeScreen = () => {
-  const [currencies, setCurrencies] = useState([
-    {
-      name: 'Bitcoin',
-      code: 'BTC',
-      price: 55455.45,
-      difference: -1.23,
-    },
-    {
-      name: 'Etherium',
-      code: 'ETH',
-      price: 1032.01,
-      difference: 9.18,
-    },
-  ]);
+const currencies = [
+  {
+    name: 'Bitcoin',
+    code: 'BTC',
+    price: 55455.45,
+    difference: -1.23,
+  },
+  {
+    name: 'Etherium',
+    code: 'ETH',
+    price: 1032.01,
+    difference: 9.18,
+  },
+]
 
+const HomeScreen = () => {
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
       {currencies.length > 0 && <Text>Your currencies</Text>}
@@ -38,6 +37,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
+    backgroundColor: '#FFFFFF'
   },
   explore: {
     display: 'flex',

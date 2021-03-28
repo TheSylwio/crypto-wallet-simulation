@@ -15,5 +15,4 @@ export default WalletScreen;
 const Wrapper = styled.View`
   flex: 1;
   align-items: center;
-  background: #fff;
 `;

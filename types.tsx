@@ -18,7 +18,13 @@ export type HomeParamList = {
 };
 
 export type CryptoParamList = {
-  CryptoScreen: { name: string };
+  CryptoScreen: {
+    name: string,
+    price: number,
+    difference: number,
+  };
+  CryptoBuyScreen: undefined;
+  CryptoSellScreen: undefined;
 };
 
 export type SettingsParamList = {

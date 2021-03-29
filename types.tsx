@@ -17,14 +17,31 @@ export type HomeParamList = {
   HomeScreen: undefined;
 };
 
+export type CryptoCurrencyName =
+  'Bitcoin'
+  | 'Cardano'
+  | 'Dogecoin'
+  | 'Ethereum'
+  | 'Litecoin'
+  | 'Monero'
+  | 'Polkadot'
+  | 'Stellar';
+
+export type CryptoCurrencyCode = 'BTC' | 'ETH' | 'DOGE' | 'LTC' | 'ADA' | 'DOT' | 'XLM' | 'XMR';
+
 export type CryptoParamList = {
   CryptoScreen: {
-    name: string,
+    name: CryptoCurrencyName,
+    code: CryptoCurrencyCode,
     price: number,
     difference: number,
   };
-  CryptoBuyScreen: undefined;
-  CryptoSellScreen: undefined;
+  CryptoBuyScreen: {
+    name: string,
+  };
+  CryptoSellScreen: {
+    name: string,
+  };
 };
 
 export type SettingsParamList = {

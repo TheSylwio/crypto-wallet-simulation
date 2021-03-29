@@ -1,6 +1,17 @@
 const tintColorLight = '#455370';
 const tintColorDark = '#fff';
 
+export const CryptoColors = {
+  Bitcoin: '#F7931A',
+  Cardano: '#2059B0',
+  Dogecoin: '#C2A633',
+  Ethereum: '#3C3C3D',
+  Litecoin: '#A6A9AA',
+  Monero: '#FF6600',
+  Polkadot: '#4D4D4D',
+  Stellar: '#7D00FF',
+};
+
 export default {
   light: {
     text: '#000',

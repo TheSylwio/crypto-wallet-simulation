@@ -17,7 +17,7 @@ const CryptoTile: React.FC<Props> = ({ name, difference, code, price }) => {
   const onPress = () => {
     navigation.navigate('Crypto', {
       screen: 'CryptoScreen',
-      params: { name },
+      params: { name, price, difference, code },
     });
   };
 

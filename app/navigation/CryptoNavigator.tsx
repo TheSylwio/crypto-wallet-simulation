@@ -19,10 +19,12 @@ const CryptoNavigator = () => {
       <CryptoStack.Screen
         name="CryptoBuyScreen"
         component={CryptoBuyScreen}
+        options={({ route }) => ({ title: `Buy ${route.params.name}` })}
       />
       <CryptoStack.Screen
         name="CryptoSellScreen"
         component={CryptoSellScreen}
+        options={({ route }) => ({ title: `Sell ${route.params.name}` })}
       />
     </CryptoStack.Navigator>
   );

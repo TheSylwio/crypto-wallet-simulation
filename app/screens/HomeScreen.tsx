@@ -11,7 +11,7 @@ const currencies = [
     difference: -1.23,
   },
   {
-    name: 'Etherium',
+    name: 'Ethereum',
     code: 'ETH',
     price: 1032.01,
     difference: 9.18,

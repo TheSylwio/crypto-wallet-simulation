@@ -1,7 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 
 export type RootStackParamList = {
-  Root: undefined;
+  Home: undefined;
   NotFound: undefined;
   Crypto: undefined;
 };
@@ -26,10 +26,10 @@ export type CryptoCurrencyName =
   | 'Ethereum'
   | 'Litecoin'
   | 'Monero'
-  | 'Polkadot'
+  | 'EOS'
   | 'Stellar';
 
-export type CryptoCurrencyCode = 'BTC' | 'ETH' | 'DOGE' | 'LTC' | 'ADA' | 'DOT' | 'XLM' | 'XMR';
+export type CryptoCurrencyCode = 'BTC' | 'ETH' | 'DOGE' | 'LTC' | 'ADA' | 'EOS' | 'XLM' | 'XMR';
 
 export type CryptoParamList = {
   CryptoScreen: {

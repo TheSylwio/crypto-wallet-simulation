@@ -4,9 +4,9 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 import { RootStackParamList } from '../../types';
 
-export default function NotFoundScreen({
+const NotFoundScreen = ({
   navigation,
-}: StackScreenProps<RootStackParamList, 'NotFound'>) {
+}: StackScreenProps<RootStackParamList, 'NotFound'>) => {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>This screen doesn't exist.</Text>
@@ -16,6 +16,8 @@ export default function NotFoundScreen({
     </View>
   );
 }
+
+export default NotFoundScreen;
 
 const styles = StyleSheet.create({
   container: {

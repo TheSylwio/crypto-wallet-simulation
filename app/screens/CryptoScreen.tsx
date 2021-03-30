@@ -51,7 +51,7 @@ const CryptoScreen = () => {
           {transactions.map(({ key, date, amount }) => (
             <TransactionRow key={key}>
               <Date>{date}</Date>
-              <Amount amount={amount}>{amount} {code}</Amount>
+              <Amount amount={amount}>{amount > 0 && '+'}{amount} {code}</Amount>
             </TransactionRow>
           ))}
         </Transactions>

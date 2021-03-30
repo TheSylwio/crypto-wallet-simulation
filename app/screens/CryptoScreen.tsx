@@ -1,17 +1,15 @@
 import * as React from 'react';
 import { Text } from 'react-native';
 import Button from '../components/Button';
-import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
-import { CryptoParamList } from '../../types';
+import { CryptoScreenRouteProp } from '../../types';
 import { CryptoColors } from '../constants/Colors';
-
-type CryptoScreenRouteProp = RouteProp<CryptoParamList, 'CryptoScreen'>;
 
 const getFormattedDifference = (difference: number) => difference > 0 ? `+ ${difference}%` : `- ${-difference}%`;
 
 const CryptoScreen = () => {
-  const { name, price, difference, code } = useRoute<CryptoScreenRouteProp>().params;
+  const { name, difference, code } = useRoute<CryptoScreenRouteProp>().params;
   const navigation = useNavigation();
 
   const buyCrypto = () => {
@@ -19,7 +17,7 @@ const CryptoScreen = () => {
   };
 
   const sellCrypto = () => {
-    navigation.navigate('Crypto', { screen: 'CryptoSellScreen' });
+    navigation.navigate('Crypto', { screen: 'CryptoSellScreen', params: { name, code } });
   };
 
   const transactions = [
@@ -39,7 +37,7 @@ const CryptoScreen = () => {
   return (
     <Wrapper>
       <Heading>
-        <Price>${price}</Price>
+        <Price>1.123456789 {code}</Price>
         <DifferenceRow>
           <Text>$1002,45</Text>
           <Difference difference={difference}>
@@ -48,8 +46,6 @@ const CryptoScreen = () => {
         </DifferenceRow>
       </Heading>
       <Content>
-        <Header>Balance</Header>
-        <Text style={{ marginBottom: 16 }}>1.123456789 BTC</Text>
         <Header style={{ marginBottom: 4 }}>Last transactions</Header>
         <Transactions>
           {transactions.map(({ key, date, amount }) => (

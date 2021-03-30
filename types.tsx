@@ -1,3 +1,5 @@
+import { RouteProp } from '@react-navigation/native';
+
 export type RootStackParamList = {
   Root: undefined;
   NotFound: undefined;
@@ -43,6 +45,8 @@ export type CryptoParamList = {
     name: string,
   };
 };
+
+export type CryptoScreenRouteProp = RouteProp<CryptoParamList, 'CryptoScreen'>;
 
 export type SettingsParamList = {
   SettingsScreen: undefined;

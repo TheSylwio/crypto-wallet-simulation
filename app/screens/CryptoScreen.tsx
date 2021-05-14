@@ -9,7 +9,7 @@ import { CryptoColors } from '../constants/Colors';
 const getFormattedDifference = (difference: number) => difference > 0 ? `+ ${difference}%` : `- ${-difference}%`;
 
 const CryptoScreen = () => {
-  const { name, difference, code } = useRoute<CryptoScreenRouteProp>().params;
+  const { name, difference, symbol } = useRoute<CryptoScreenRouteProp>().params;
   const navigation = useNavigation();
 
   const buyCrypto = () => {
@@ -17,7 +17,7 @@ const CryptoScreen = () => {
   };
 
   const sellCrypto = () => {
-    navigation.navigate('Crypto', { screen: 'CryptoSellScreen', params: { name, code } });
+    navigation.navigate('Crypto', { screen: 'CryptoSellScreen', params: { name, symbol } });
   };
 
   const transactions = [
@@ -37,7 +37,7 @@ const CryptoScreen = () => {
   return (
     <Wrapper>
       <Heading>
-        <Price>1.123456789 {code}</Price>
+        <Price>1.123456789 {symbol}</Price>
         <DifferenceRow>
           <Text>$1002,45</Text>
           <Difference difference={difference}>
@@ -51,7 +51,7 @@ const CryptoScreen = () => {
           {transactions.map(({ key, date, amount }) => (
             <TransactionRow key={key}>
               <Date>{date}</Date>
-              <Amount amount={amount}>{amount > 0 && '+'}{amount} {code}</Amount>
+              <Amount amount={amount}>{amount > 0 && '+'}{amount} {symbol}</Amount>
             </TransactionRow>
           ))}
         </Transactions>

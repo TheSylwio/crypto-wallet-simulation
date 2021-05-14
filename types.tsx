@@ -19,22 +19,10 @@ export type HomeParamList = {
   HomeScreen: undefined;
 };
 
-export type CryptoCurrencyName =
-  'Bitcoin'
-  | 'Cardano'
-  | 'Dogecoin'
-  | 'Ethereum'
-  | 'Litecoin'
-  | 'Monero'
-  | 'EOS'
-  | 'Stellar';
-
-export type CryptoCurrencyCode = 'BTC' | 'ETH' | 'DOGE' | 'LTC' | 'ADA' | 'EOS' | 'XLM' | 'XMR';
-
 export type CryptoParamList = {
   CryptoScreen: {
     name: CryptoCurrencyName,
-    code: CryptoCurrencyCode,
+    symbol: CryptoCurrencySymbol,
     price: number,
     difference: number,
   };
@@ -50,4 +38,27 @@ export type CryptoScreenRouteProp = RouteProp<CryptoParamList, 'CryptoScreen'>;
 
 export type SettingsParamList = {
   SettingsScreen: undefined;
+};
+
+export enum Redux {
+  SetCryptocurrencies = 'SET_CRYPTOCURRENCIES',
+}
+
+export type CryptoCurrencyName =
+  'Bitcoin'
+  | 'Cardano'
+  | 'Dogecoin'
+  | 'Ethereum'
+  | 'Litecoin'
+  | 'Monero'
+  | 'EOS'
+  | 'Stellar';
+
+export type CryptoCurrencySymbol = 'BTC' | 'ETH' | 'DOGE' | 'LTC' | 'ADA' | 'EOS' | 'XLM' | 'XMR';
+
+export type CryptoCurrency = {
+  name: CryptoCurrencyName;
+  symbol: CryptoCurrencySymbol;
+  price: number;
+  difference: number;
 };

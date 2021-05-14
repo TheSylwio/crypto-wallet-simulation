@@ -1,36 +1,13 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
-import { CryptoCurrency, CryptoCurrencySymbol } from '../../types';
-
-const getFormattedDifference = (difference: number) => {
-  const diff = difference.toFixed(3);
-  return difference > 0 ? `+ ${diff}%` : `- ${-diff}%`;
-}
+import { CryptoCurrency } from '../../types';
+import getCryptoIcon from '../utils/getCryptoIcon';
+import getFormattedDifference from '../utils/getFormattedDifference';
 
 const CryptoTile: React.FC<CryptoCurrency> = ({ name, difference, symbol, price }) => {
   const navigation = useNavigation();
 
-  const getIcon = (symbol: CryptoCurrencySymbol) => {
-    switch (symbol) {
-      case 'ADA':
-        return require('../assets/icons/cardano.png');
-      case 'BTC':
-        return require('../assets/icons/bitcoin.png');
-      case 'DOGE':
-        return require('../assets/icons/dogecoing.png');
-      case 'EOS':
-        return require('../assets/icons/eos.png');
-      case 'ETH':
-        return require('../assets/icons/ethereum.png');
-      case 'LTC':
-        return require('../assets/icons/litecoin.png');
-      case 'XLM':
-        return require('../assets/icons/stellar.png');
-      case 'XMR':
-        return require('../assets/icons/monero.png');
-    }
-  };
 
   const onPress = () => {
     navigation.navigate('Crypto', {
@@ -41,7 +18,7 @@ const CryptoTile: React.FC<CryptoCurrency> = ({ name, difference, symbol, price 
 
   return (
     <Wrapper onPress={onPress}>
-      <Icon style={{ resizeMode: 'contain' }} source={getIcon(symbol)}/>
+      <Icon style={{ resizeMode: 'contain' }} source={getCryptoIcon(symbol)}/>
       <Main>
         <Name>{name}</Name>
         <FadedText>{symbol}</FadedText>

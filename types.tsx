@@ -41,7 +41,11 @@ export type SettingsParamList = {
 };
 
 export enum Redux {
+  AddTransaction = 'ADD_TRANSACTION',
   SetCryptocurrencies = 'SET_CRYPTOCURRENCIES',
+  SetUserCryptocurrency = 'SET_USER_CRYPTOCURRENCY',
+  SetFunds = 'SET_FUNDS',
+  SetTransactions = 'SET_TRANSACTIONS',
 }
 
 export type CryptoCurrencyName =

@@ -1,7 +1,7 @@
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import mockup from '../../mockup';
-import { CryptoCurrency, Redux } from '../../types';
+import { CryptoCurrency, CryptoCurrencySymbol, Redux, Transaction } from '../../types';
 
 type NewThunkDispatch = ThunkDispatch<{}, {}, AnyAction>;
 
@@ -24,4 +24,28 @@ export const fetchCryptocurrencies = () => async (dispatch: NewThunkDispatch) =>
   }));
 
   dispatch(setCryptocurrencies(<CryptoCurrency[]>mappedCryptocurrencies));
+};
+
+export const setFunds = (funds: number) => async (dispatch: NewThunkDispatch) => {
+  dispatch({
+    type: Redux.SetFunds,
+    payload: funds,
+  });
+};
+
+export const addTransaction = (transaction: Transaction) => async (dispatch: NewThunkDispatch) => {
+  dispatch({
+    type: Redux.AddTransaction,
+    payload: transaction,
+  });
+};
+
+export const setUserCryptocurrency = (symbol: CryptoCurrencySymbol, amount: number) => async (dispatch: NewThunkDispatch) => {
+  dispatch({
+    type: Redux.SetUserCryptocurrency,
+    payload: {
+      symbol,
+      amount,
+    },
+  });
 };

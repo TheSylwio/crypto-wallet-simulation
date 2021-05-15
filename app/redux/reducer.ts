@@ -1,8 +1,11 @@
-import { Redux } from '../../types';
+import { CryptoCurrencySymbol, Redux } from '../../types';
 
 type ActionType = {
   type: Redux;
-  payload: any;
+  payload: {
+    symbol: CryptoCurrencySymbol;
+    amount: number;
+  };
 };
 
 const initialState = {

@@ -67,6 +67,8 @@ export type CryptoCurrency = {
   difference: number;
 };
 
+export type UserCryptoCurrencies = Record<CryptoCurrencySymbol, number>;
+
 export type Transaction = {
   cryptocurrency: CryptoCurrencySymbol;
   date: Date;

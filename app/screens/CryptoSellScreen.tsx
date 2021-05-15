@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import Button from '../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { CryptoScreenRouteProp } from '../../types';
+import { CryptoCurrency, CryptoScreenRouteProp } from '../../types';
 import { Available, Content, Funds, Heading, InputRow, StyledInput, Wrapper } from '../layouts/CryptoOperations';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCryptocurrencies, getFunds, getUserCryptocurrencies } from '../redux/selectors';
@@ -19,7 +19,7 @@ const CryptoSellScreen = () => {
   const dispatch = useDispatch();
 
   const sellCrypto = () => {
-    const { price } = cryptoCurrencies.find(crypto => crypto.symbol === symbol);
+    const { price } = cryptoCurrencies.find(crypto => crypto.symbol === symbol) as CryptoCurrency;
     const priceToAdd = selectedAmount * price;
     const transaction = {
       cryptocurrency: symbol,

@@ -4,7 +4,7 @@ import { Text } from 'react-native';
 import Button from '../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import styled from 'styled-components/native';
-import { CryptoScreenRouteProp, Transaction } from '../../types';
+import { CryptoCurrency, CryptoScreenRouteProp, Transaction } from '../../types';
 import { CryptoColors } from '../constants/Colors';
 import { useSelector } from 'react-redux';
 import { getCryptocurrencies, getFunds, getTransactions, getUserCryptocurrencies } from '../redux/selectors';
@@ -33,12 +33,11 @@ const CryptoScreen = () => {
 
   useEffect(() => {
     const currentCryptoTransactions = transactions.filter(({ cryptocurrency }) => cryptocurrency === symbol);
-    console.log(currentCryptoTransactions);
     setCurrentCryptoTransactions(currentCryptoTransactions);
   }, [transactions]);
 
   useEffect(() => {
-    const { price } = cryptocurrencies.find(crypto => crypto.symbol === symbol);
+    const { price } = cryptocurrencies.find(crypto => crypto.symbol === symbol) as CryptoCurrency;
     const amount = userCryptocurrencies[symbol];
 
     setCurrentCryptoAmount(amount);

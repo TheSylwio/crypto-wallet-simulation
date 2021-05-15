@@ -13,17 +13,35 @@ import {
   StyledInput,
   Wrapper,
 } from '../layouts/CryptoOperations';
-
-// FIXME: Temporary usage
-const available = 500;
+import { useDispatch, useSelector } from 'react-redux';
+import { getCryptocurrencies, getFunds } from '../redux/selectors';
+import { addTransaction, setFunds, setUserCryptocurrency } from '../redux/actions';
 
 const CryptoBuyScreen = () => {
-  const { name } = useRoute<CryptoScreenRouteProp>().params;
+  const { symbol } = useRoute<CryptoScreenRouteProp>().params;
   const navigation = useNavigation();
-  const [price, setPrice] = useState(0);
+  const [selectedPrice, setPrice] = useState(0);
+  const funds = useSelector(getFunds);
+  const cryptoCurrencies = useSelector(getCryptocurrencies);
+  const dispatch = useDispatch();
 
   const buyCrypto = () => {
-    console.log(`You bought ${name} for $${price}`);
+    // @ts-ignore
+    const { price } = cryptoCurrencies.find(crypto => crypto.symbol === symbol);
+    const amount = selectedPrice / price;
+    if (selectedPrice > funds) return;
+
+    const transaction = {
+      cryptocurrency: symbol,
+      date: new Date(),
+      amount,
+      price: -1 * selectedPrice,
+    };
+
+    dispatch(addTransaction(transaction));
+    dispatch(setFunds(funds - selectedPrice));
+    dispatch(setUserCryptocurrency(symbol, amount));
+
     navigation.navigate('Home');
   };
 
@@ -31,7 +49,7 @@ const CryptoBuyScreen = () => {
     <Wrapper>
       <Heading>
         <Available>Available</Available>
-        <Funds>${available}</Funds>
+        <Funds>${funds.toFixed(2)}</Funds>
       </Heading>
       <Content keyboardShouldPersistTaps="always">
         <InputRow>

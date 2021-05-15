@@ -62,3 +62,10 @@ export type CryptoCurrency = {
   price: number;
   difference: number;
 };
+
+export type Transaction = {
+  cryptocurrency: CryptoCurrencySymbol;
+  date: Date;
+  price: number;
+  amount: number;
+}

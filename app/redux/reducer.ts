@@ -1,5 +1,5 @@
 import { CryptoCurrencySymbol, Redux } from '../../types';
-import storage from '../utils/storage';
+import { saveIntoStorage } from '../utils/storage';
 
 type ActionType = {
   type: Redux;
@@ -38,22 +38,15 @@ const root = (state = initialState, action: ActionType) => {
         transactions: action.payload,
       };
     case Redux.AddTransaction:
-      storage.save({
-        key: 'transactions',
-        data: JSON.stringify([...state.transactions, action.payload]),
-        expires: null,
-      });
+      const transactions = [...state.transactions, action.payload];
+      saveIntoStorage('transactions', transactions, true);
 
       return {
         ...state,
-        transactions: [...state.transactions, action.payload],
+        transactions,
       };
     case Redux.SetFunds:
-      storage.save({
-        key: 'funds',
-        data: action.payload,
-        expires: null,
-      });
+      saveIntoStorage('funds', action.payload);
 
       return {
         ...state,
@@ -65,11 +58,7 @@ const root = (state = initialState, action: ActionType) => {
         [action.payload.symbol]: state.userCryptocurrencies[action.payload.symbol] + action.payload.amount,
       };
 
-      storage.save({
-        key: 'cryptocurrencies',
-        data: JSON.stringify(userCryptocurrencies),
-        expires: null,
-      });
+      saveIntoStorage('cryptocurrencies', userCryptocurrencies, true);
 
       return {
         ...state,

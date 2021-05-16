@@ -1,6 +1,7 @@
 import { RouteProp } from '@react-navigation/native';
 
 export type RootStackParamList = {
+  Root: undefined;
   Home: undefined;
   NotFound: undefined;
   Crypto: undefined;
@@ -44,6 +45,7 @@ export enum Redux {
   AddTransaction = 'ADD_TRANSACTION',
   SetCryptocurrencies = 'SET_CRYPTOCURRENCIES',
   SetUserCryptocurrency = 'SET_USER_CRYPTOCURRENCY',
+  SetUserCryptoCurrencies = 'SET_USER_CRYPTOCURRENCIES',
   SetFunds = 'SET_FUNDS',
   SetTransactions = 'SET_TRANSACTIONS',
 }
@@ -71,7 +73,7 @@ export type UserCryptoCurrencies = Record<CryptoCurrencySymbol, number>;
 
 export type Transaction = {
   cryptocurrency: CryptoCurrencySymbol;
-  date: Date;
+  date: string;
   price: number;
   amount: number;
 }

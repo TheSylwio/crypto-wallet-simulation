@@ -23,7 +23,7 @@ const CryptoSellScreen = () => {
     const priceToAdd = selectedAmount * price;
     const transaction = {
       cryptocurrency: symbol,
-      date: new Date(),
+      date: new Date().toString(),
       amount: -1 * selectedAmount,
       price: priceToAdd,
     };

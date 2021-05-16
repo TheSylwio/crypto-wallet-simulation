@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import Button from '../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { CryptoScreenRouteProp } from '../../types';
+import { CryptoCurrency, CryptoScreenRouteProp } from '../../types';
 import {
   Available,
   Content,
@@ -26,14 +26,13 @@ const CryptoBuyScreen = () => {
   const dispatch = useDispatch();
 
   const buyCrypto = () => {
-    // @ts-ignore
-    const { price } = cryptoCurrencies.find(crypto => crypto.symbol === symbol);
+    const { price } = cryptoCurrencies.find(crypto => crypto.symbol === symbol) as CryptoCurrency;
     const amount = selectedPrice / price;
     if (selectedPrice > funds) return;
 
     const transaction = {
       cryptocurrency: symbol,
-      date: new Date(),
+      date: new Date().toString(),
       amount,
       price: -1 * selectedPrice,
     };

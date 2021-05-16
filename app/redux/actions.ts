@@ -1,7 +1,8 @@
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
 import mockup from '../../mockup';
-import { CryptoCurrency, CryptoCurrencySymbol, Redux, Transaction } from '../../types';
+import { CryptoCurrency, CryptoCurrencySymbol, Redux, Transaction, UserCryptoCurrencies } from '../../types';
+import storage from '../utils/storage';
 
 type NewThunkDispatch = ThunkDispatch<{}, {}, AnyAction>;
 
@@ -47,5 +48,37 @@ export const setUserCryptocurrency = (symbol: CryptoCurrencySymbol, amount: numb
       symbol,
       amount,
     },
+  });
+};
+
+export const setTransactions = (transactions: Transaction[]) => async (dispatch: NewThunkDispatch) => {
+  dispatch({
+    type: Redux.SetTransactions,
+    payload: transactions,
+  });
+};
+
+export const setUserCryptoCurrencies = (cryptocurrencies: UserCryptoCurrencies) => async (dispatch: NewThunkDispatch) => {
+  dispatch({
+    type: Redux.SetUserCryptoCurrencies,
+    payload: cryptocurrencies,
+  });
+};
+
+export const checkCachedTransactions = () => async (dispatch: NewThunkDispatch) => {
+  await storage.load({ key: 'transactions' }).then(transactions => {
+    dispatch(setTransactions(JSON.parse(transactions)));
+  });
+};
+
+export const checkCachedCryptoCurrencies = () => async (dispatch: NewThunkDispatch) => {
+  await storage.load({ key: 'cryptocurrencies' }).then(cryptocurrencies => {
+    dispatch(setUserCryptoCurrencies(JSON.parse(cryptocurrencies)));
+  });
+};
+
+export const checkFunds = () => async (dispatch: NewThunkDispatch) => {
+  await storage.load({ key: 'funds' }).then(funds => {
+    dispatch(setFunds(funds));
   });
 };

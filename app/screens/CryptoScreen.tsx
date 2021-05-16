@@ -60,13 +60,16 @@ const CryptoScreen = () => {
         <Header style={{ marginBottom: 4 }}>Last transactions</Header>
         <Transactions>
           {currentCryptoTransactions.length === 0 && <Text>👋 No transactions for {name}</Text>}
-          {currentCryptoTransactions.map(({ date, amount, cryptocurrency, price }) => (
-            <TransactionRow key={date.getTime()}>
-              <Date>{date.toLocaleDateString()}</Date>
-              <Amount amount={amount}>{amount > 0 && '+'}{amount.toFixed(10)} {cryptocurrency} /
-                ${price.toFixed(2)}</Amount>
-            </TransactionRow>
-          ))}
+          {currentCryptoTransactions.map(({ date, amount, cryptocurrency, price }) => {
+            const parsedDate = new window.Date(window.Date.parse(date));
+            return (
+              <TransactionRow key={parsedDate.getTime()}>
+                <Date>{parsedDate.toLocaleDateString()}</Date>
+                <Amount amount={amount}>{amount > 0 && '+'}{amount.toFixed(10)} {cryptocurrency} /
+                  ${price.toFixed(2)}</Amount>
+              </TransactionRow>
+            );
+          })}
         </Transactions>
         <ButtonRow>
           <FirstButton title="BUY" onPress={buyCrypto} color={CryptoColors[name]} disabled={funds === 0}/>

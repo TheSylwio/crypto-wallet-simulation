@@ -5,7 +5,12 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import useColorScheme from './app/hooks/useColorScheme';
 import { useDispatch } from 'react-redux';
-import { fetchCryptocurrencies } from './app/redux/actions';
+import {
+  fetchCryptocurrencies,
+  checkCachedTransactions,
+  checkCachedCryptoCurrencies,
+  checkFunds,
+} from './app/redux/actions';
 
 const AppContent = () => {
   const colorScheme = useColorScheme();
@@ -13,6 +18,9 @@ const AppContent = () => {
 
   useEffect(() => {
     dispatch(fetchCryptocurrencies());
+    dispatch(checkCachedTransactions());
+    dispatch(checkCachedCryptoCurrencies());
+    dispatch(checkFunds());
   }, []);
 
   return (

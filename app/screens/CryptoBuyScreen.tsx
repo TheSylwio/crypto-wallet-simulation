@@ -61,7 +61,8 @@ const CryptoBuyScreen = () => {
             autoFocus
           />
         </InputRow>
-        <Button title="Buy" onPress={buyCrypto} color="#111111"/>
+        <Button title="Buy" onPress={buyCrypto} color="#111111"
+                disabled={selectedPrice === 0 || selectedPrice > funds}/>
       </Content>
     </Wrapper>
   );

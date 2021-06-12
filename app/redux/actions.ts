@@ -1,8 +1,9 @@
 import { ThunkDispatch } from 'redux-thunk';
 import { AnyAction } from 'redux';
-import mockup from '../../mockup';
 import { CryptoCurrency, CryptoCurrencySymbol, Redux, Transaction, UserCryptoCurrencies } from '../../types';
 import { loadFromStorage } from '../utils/storage';
+// @ts-ignore
+import { API_URL, API_KEY } from '@env';
 
 export type NewThunkDispatch = ThunkDispatch<{}, {}, AnyAction>;
 
@@ -14,8 +15,14 @@ const setCryptocurrencies = (cryptocurrencies: CryptoCurrency[]) => {
 };
 
 export const fetchCryptocurrencies = () => async (dispatch: NewThunkDispatch) => {
-  // TODO: Remove mockup
-  const { BTC, ETH, DOGE, LTC, ADA, EOS, XLM, XMR } = mockup.data;
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CMC_PRO_API_KEY': API_KEY,
+    },
+  };
+  const { data } = await fetch(API_URL, options).then(response => response.json()).catch(error => console.error(error));
+  const { BTC, ETH, DOGE, LTC, ADA, EOS, XLM, XMR } = data;
   const cryptocurrencies = [BTC, ETH, DOGE, LTC, ADA, EOS, XLM, XMR];
   const mappedCryptocurrencies = cryptocurrencies.map(({ name, symbol, quote }) => ({
     name,

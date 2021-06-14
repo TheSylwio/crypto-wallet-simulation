@@ -1,32 +1,22 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-
+import * as React from 'react';
+import { Provider } from 'react-redux';
 import useCachedResources from './app/hooks/useCachedResources';
-import useColorScheme from './app/hooks/useColorScheme';
-import Navigation from './app/navigation';
-import { useFonts, Poppins_300Light, Poppins_400Regular, Poppins_500Medium, Poppins_700Bold } from '@expo-google-fonts/poppins';
+import initializeStore from './app/redux/store';
+import AppContent from './AppContent';
 
 const App = () => {
   const isLoadingComplete = useCachedResources();
-  const colorScheme = useColorScheme();
-  const [fontsLoaded] = useFonts({
-    Poppins_300Light,
-    Poppins_400Regular,
-    Poppins_500Medium,
-    Poppins_700Bold,
-  });
+  const store = initializeStore();
 
-  if (!isLoadingComplete && !fontsLoaded) {
+  if (!isLoadingComplete) {
     return null;
   } else {
     return (
-      <SafeAreaProvider>
-        <Navigation colorScheme={colorScheme} />
-        <StatusBar />
-      </SafeAreaProvider>
+      <Provider store={store}>
+        <AppContent/>
+      </Provider>
     );
   }
-}
+};
 
 export default App;

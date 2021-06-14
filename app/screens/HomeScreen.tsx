@@ -1,34 +1,27 @@
 import * as React from 'react';
 import { Text } from '../components/Themed';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet }from 'react-native';
 import CryptoTile from '../components/CryptoTile';
-
-const currencies = [
-  {
-    name: 'Bitcoin',
-    code: 'BTC',
-    price: 55455.45,
-    difference: -1.23,
-  },
-  {
-    name: 'Ethereum',
-    code: 'ETH',
-    price: 1032.01,
-    difference: 9.18,
-  },
-]
+import { getCryptocurrencies, getUserCryptocurrencies } from '../redux/selectors';
+import { useSelector } from 'react-redux';
 
 const HomeScreen = () => {
+  const cryptocurrencies = useSelector(getCryptocurrencies);
+  const userCryptocurrencies = useSelector(getUserCryptocurrencies);
+  const names = Object.entries(userCryptocurrencies).filter(([_, amount]) => amount > 0).map(([symbol]) => symbol);
+  const filteredUserCryptocurrencies = cryptocurrencies.filter(({ symbol }) => names.includes(symbol));
+  const filteredExploreCryptocurrencies = cryptocurrencies.filter(({ symbol }) => !names.includes(symbol));
+
   return (
     <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
-      {currencies.length > 0 && <Text>Your currencies</Text>}
-      {currencies.length > 0 && currencies.map(({ name, difference, code, price }) => (
-        <CryptoTile name={name} key={name} difference={difference} code={code} price={price}/>
+      {filteredUserCryptocurrencies.length > 0 && <Text style={styles.heading}>Your currencies</Text>}
+      {filteredUserCryptocurrencies.length > 0 && filteredUserCryptocurrencies.map(({ name, difference, symbol, price }) => (
+        <CryptoTile name={name} key={name} difference={difference} symbol={symbol} price={price}/>
       ))}
-      <View style={styles.explore}>
-        <Text>Explore</Text>
-        <Text style={styles.link}>View all</Text>
-      </View>
+      <Text style={styles.heading}>Explore</Text>
+      {filteredExploreCryptocurrencies.map(({ name, difference, symbol, price }) => (
+        <CryptoTile name={name} key={name} difference={difference} symbol={symbol} price={price}/>
+      ))}
     </ScrollView>
   );
 };
@@ -37,17 +30,12 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: '#FFFFFF'
+    backgroundColor: '#FFFFFF',
   },
-  explore: {
-    display: 'flex',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  link: {
-    color: '#016998',
-    textDecorationLine: 'underline',
-  },
+  heading: {
+    marginBottom: 12,
+    fontSize: 16,
+  }
 });
 
 export default HomeScreen;

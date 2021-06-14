@@ -29,7 +29,7 @@ export type ViewProps = ThemeProps & DefaultView['props'];
 export const Text = ({ style, lightColor, darkColor, ...otherProps }: TextProps) => {
   const color = useThemeColor({ light: lightColor, dark: darkColor }, 'text');
 
-  return <DefaultText style={[{ color, fontFamily: 'Poppins_400Regular' }, style]} {...otherProps} />;
+  return <DefaultText style={[{ color }, style]} {...otherProps} />;
 }
 
 export const View = ({ style, lightColor, darkColor, ...otherProps }: ViewProps) => {

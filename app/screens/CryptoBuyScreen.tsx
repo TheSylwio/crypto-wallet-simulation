@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useState } from 'react';
 import Button from '../components/Button';
 import { useNavigation, useRoute } from '@react-navigation/native';
-import { CryptoScreenRouteProp } from '../../types';
+import { CryptoCurrency, CryptoScreenRouteProp } from '../../types';
 import {
   Available,
   Content,
@@ -13,17 +13,34 @@ import {
   StyledInput,
   Wrapper,
 } from '../layouts/CryptoOperations';
-
-// FIXME: Temporary usage
-const available = 500;
+import { useDispatch, useSelector } from 'react-redux';
+import { getCryptocurrencies, getFunds } from '../redux/selectors';
+import { addTransaction, setFunds, setUserCryptocurrency } from '../redux/actions';
 
 const CryptoBuyScreen = () => {
-  const { name } = useRoute<CryptoScreenRouteProp>().params;
+  const { symbol } = useRoute<CryptoScreenRouteProp>().params;
   const navigation = useNavigation();
-  const [price, setPrice] = useState(0);
+  const [selectedPrice, setPrice] = useState(0);
+  const funds = useSelector(getFunds);
+  const cryptoCurrencies = useSelector(getCryptocurrencies);
+  const dispatch = useDispatch();
 
   const buyCrypto = () => {
-    console.log(`You bought ${name} for $${price}`);
+    const { price } = cryptoCurrencies.find(crypto => crypto.symbol === symbol) as CryptoCurrency;
+    const amount = selectedPrice / price;
+    if (selectedPrice > funds) return;
+
+    const transaction = {
+      cryptocurrency: symbol,
+      date: new Date().toString(),
+      amount,
+      price: -1 * selectedPrice,
+    };
+
+    dispatch(addTransaction(transaction));
+    dispatch(setFunds(funds - selectedPrice));
+    dispatch(setUserCryptocurrency(symbol, amount));
+
     navigation.navigate('Home');
   };
 
@@ -31,7 +48,7 @@ const CryptoBuyScreen = () => {
     <Wrapper>
       <Heading>
         <Available>Available</Available>
-        <Funds>${available}</Funds>
+        <Funds>${funds.toFixed(2)}</Funds>
       </Heading>
       <Content keyboardShouldPersistTaps="always">
         <InputRow>
@@ -44,7 +61,8 @@ const CryptoBuyScreen = () => {
             autoFocus
           />
         </InputRow>
-        <Button title="Buy" onPress={buyCrypto} color="#111111"/>
+        <Button title="Buy" onPress={buyCrypto} color="#111111"
+                disabled={selectedPrice === 0 || selectedPrice > funds}/>
       </Content>
     </Wrapper>
   );

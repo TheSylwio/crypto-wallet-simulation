@@ -1,33 +1,28 @@
 import * as React from 'react';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
+import { CryptoCurrency } from '../../types';
+import getCryptoIcon from '../utils/getCryptoIcon';
+import getFormattedDifference from '../utils/getFormattedDifference';
 
-interface Props {
-  name: string;
-  difference: number;
-  code: string;
-  price: number;
-}
-
-const getFormattedDifference = (difference: number) => difference > 0 ? `+ ${difference}%` : `- ${-difference}%`;
-
-const CryptoTile: React.FC<Props> = ({ name, difference, code, price }) => {
+const CryptoTile: React.FC<CryptoCurrency> = ({ name, difference, symbol, price }) => {
   const navigation = useNavigation();
+
 
   const onPress = () => {
     navigation.navigate('Crypto', {
       screen: 'CryptoScreen',
-      params: { name, price, difference, code },
+      params: { name, price, difference, symbol },
     });
   };
 
   return (
     <Wrapper onPress={onPress}>
-      <Icon style={{ resizeMode: 'contain' }} source={require('../assets/icons/bitcoin.png')}/>
+      <Icon style={{ resizeMode: 'contain' }} source={getCryptoIcon(symbol)}/>
       <Main>
         <Name>{name}</Name>
-        <FadedText>{code}</FadedText>
-        <FadedText>{price}</FadedText>
+        <FadedText>{symbol}</FadedText>
+        <FadedText>$ {price.toFixed(5)}</FadedText>
       </Main>
       <Difference difference={difference}>
         {getFormattedDifference(difference)}
@@ -44,6 +39,9 @@ const Wrapper = styled.Pressable`
   padding: 16px;
   margin-bottom: 8px;
   border-radius: 16px;
+  border-width: 2px;
+  border-color: #EFEFEF;
+  border-top-width: 0;
 `;
 
 const Icon = styled.Image`

@@ -8,7 +8,7 @@ export const CryptoColors = {
   Ethereum: '#3C3C3D',
   Litecoin: '#A6A9AA',
   Monero: '#FF6600',
-  Polkadot: '#4D4D4D',
+  EOS: '#000000',
   Stellar: '#7D00FF',
 };
 
